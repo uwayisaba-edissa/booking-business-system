@@ -51,6 +51,7 @@ Change the seeded password before using the system in production.
 - `/` or `/index.php` — public destination listing
 - `/public/booking.php` — booking form
 - `/public/my-bookings.php` — find bookings by email and phone
+- `/public/payment.php` — local demo RWF payment confirmation
 - `/public/admin/login.php` — administrator login
 - `/schema.sql` — repeatable database schema and sample data
 

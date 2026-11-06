@@ -18,6 +18,7 @@ $_SESSION['csrf_token'] = $_SESSION['csrf_token'] ?? bin2hex(random_bytes(32));
 try {
     $controller = new BookingController();
     $result = $controller->process($_POST, $_SESSION['user_id'] ?? null);
+    $_SESSION['last_booking_reference'] = $result['reference_code'];
 
     $_SESSION['flash'] = [
         'type' => 'success',

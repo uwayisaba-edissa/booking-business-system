@@ -79,7 +79,9 @@ $activities = $activityStmt->fetchAll();
                     <p class="eyebrow small">Payment receipt</p>
                     <h2>Thank you for your reservation</h2>
                 </div>
-                <span class="badge success">Confirmed</span>
+                <span class="badge <?= $booking['payment_status'] === 'paid' ? 'success' : ''; ?>">
+                    <?= $booking['payment_status'] === 'paid' ? 'Paid' : 'Payment pending'; ?>
+                </span>
             </div>
 
             <div class="receipt-summary">
@@ -138,6 +140,9 @@ $activities = $activityStmt->fetchAll();
             </div>
 
             <div class="receipt-actions">
+                <?php if ($booking['payment_status'] !== 'paid'): ?>
+                    <a href="<?= appUrl('/public/payment.php?reference=' . urlencode((string) $booking['reference_code'])); ?>" class="btn primary">Pay now</a>
+                <?php endif; ?>
                 <a href="<?= appUrl('/public/my-bookings.php'); ?>" class="btn secondary">View my bookings</a>
                 <a href="<?= appUrl('/public/booking.php'); ?>" class="btn primary">Book another trip</a>
             </div>
