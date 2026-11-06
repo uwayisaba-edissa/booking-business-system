@@ -1,0 +1,18 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Runtime and generated files
+__pycache__/
+*.py[cod]
+*.log
+
+# Local database exports and backups
+*.dump
+*.sql.bak
