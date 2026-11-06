@@ -118,7 +118,8 @@ if (isset($_SESSION['user_id']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
                             <th>Date</th>
                             <th>Guests</th>
                             <th>Total</th>
-                            <th>Status</th>
+                            <th>Payment status</th>
+                            <th>Booking status</th>
                             <th>Receipt</th>
                         </tr>
                     </thead>
@@ -130,7 +131,8 @@ if (isset($_SESSION['user_id']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
                                 <td><?= htmlspecialchars($booking['booking_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                                 <td><?= (int) $booking['number_of_guests']; ?></td>
                                 <td>Fr <?= number_format((float) $booking['total_price'], 0, '.', ' '); ?></td>
-                                <td><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                <td><span class="status-pill status-<?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
+                                <td><span class="status-pill status-<?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
                                 <td><a href="<?= appUrl('/public/receipt.php?reference=' . urlencode((string) $booking['reference_code'])); ?>" class="btn secondary small">Open</a></td>
                             </tr>
                         <?php endforeach; ?>

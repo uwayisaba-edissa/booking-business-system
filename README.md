@@ -52,6 +52,8 @@ Change the seeded password before using the system in production.
 - `/public/booking.php` — booking form
 - `/public/my-bookings.php` — find bookings by email and phone
 - `/public/payment.php` — local demo RWF payment confirmation
+
+Bookings use two independent statuses: `payment_status` records whether payment is pending or paid, while `booking_status` records whether the admin has left the booking pending, confirmed, or cancelled. A demo payment changes only `payment_status`; the admin must confirm the booking separately.
 - `/public/admin/login.php` — administrator login
 - `/schema.sql` — repeatable database schema and sample data
 

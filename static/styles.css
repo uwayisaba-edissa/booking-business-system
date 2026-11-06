@@ -155,6 +155,10 @@ button, input, select { font: inherit; }
 .stacked-controls { display: grid; gap: 7px; }
 .stacked-controls button, .stacked-controls select { width: 100%; }
 .inline-action { display: inline; }
+.status-pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; font-size: 0.72rem; font-weight: 800; text-transform: capitalize; }
+.status-paid, .status-confirmed { color: var(--success); background: var(--success-bg); }
+.status-pending { color: #8a6411; background: #fff3cd; }
+.status-cancelled { color: var(--error); background: var(--error-bg); }
 .receipt-card { padding: 32px; }
 .receipt-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
 .receipt-header h2 { margin: 0; font-size: 2.2rem; }

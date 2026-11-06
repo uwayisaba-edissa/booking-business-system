@@ -102,6 +102,10 @@ $activities = $activityStmt->fetchAll();
                     <strong><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></strong>
                 </div>
                 <div>
+                    <label>Booking status</label>
+                    <strong><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></strong>
+                </div>
+                <div>
                     <label>Payment method</label>
                     <strong><?= htmlspecialchars(ucwords(str_replace('_', ' ', (string) $booking['payment_method'])), ENT_QUOTES, 'UTF-8'); ?></strong>
                 </div>

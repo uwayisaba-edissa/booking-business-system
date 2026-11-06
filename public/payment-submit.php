@@ -32,9 +32,9 @@ if (!$allowed) {
 }
 
 $update = $pdo->prepare(
-    "UPDATE bookings SET payment_status = 'paid', booking_status = 'confirmed' WHERE reference_code = :reference"
+    "UPDATE bookings SET payment_status = 'paid' WHERE reference_code = :reference"
 );
 $update->execute([':reference' => $reference]);
-$_SESSION['flash'] = ['type' => 'success', 'message' => 'Demo payment completed successfully.'];
+$_SESSION['flash'] = ['type' => 'success', 'message' => 'Payment completed successfully. Your booking is awaiting admin confirmation.'];
 header('Location: ' . appUrl('/public/receipt.php?reference=' . urlencode($reference)));
 exit;
