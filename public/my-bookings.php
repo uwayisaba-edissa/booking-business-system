@@ -10,7 +10,18 @@ $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
 $results = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_SESSION['user_id']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $stmt = $pdo->prepare(
+        'SELECT b.*, d.title AS destination_title, d.location AS destination_location, u.full_name, u.email, u.phone
+         FROM bookings b
+         JOIN destinations d ON d.id = b.destination_id
+         JOIN users u ON u.id = b.user_id
+         WHERE b.user_id = :user_id
+         ORDER BY b.created_at DESC'
+    );
+    $stmt->execute([':user_id' => (int) $_SESSION['user_id']]);
+    $results = $stmt->fetchAll();
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(trim((string) ($_POST['email'] ?? '')));
     $phone = trim((string) ($_POST['phone'] ?? ''));
     $normalizedPhone = preg_replace('/\D+/', '', $phone) ?? '';
@@ -59,6 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="<?= appUrl('/public/index.php#destinations'); ?>">Destinations</a>
                 <a href="<?= appUrl('/public/booking.php'); ?>">Book Now</a>
                 <a href="<?= appUrl('/public/my-bookings.php'); ?>" class="active">My bookings</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="<?= appUrl('/public/logout.php'); ?>">Sign out</a>
+                <?php else: ?>
+                    <a href="<?= appUrl('/public/login.php'); ?>">Sign in</a>
+                <?php endif; ?>
                 <a href="<?= appUrl('/public/admin/login.php'); ?>">Admin</a>
             </nav>
         </div>

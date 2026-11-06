@@ -37,6 +37,11 @@ unset($_SESSION['flash']);
                 <a href="<?= appUrl('/public/index.php#destinations'); ?>">Destinations</a>
                 <a href="<?= appUrl('/public/booking.php'); ?>" class="active">Book Now</a>
                 <a href="<?= appUrl('/public/my-bookings.php'); ?>">My bookings</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="<?= appUrl('/public/logout.php'); ?>">Sign out</a>
+                <?php else: ?>
+                    <a href="<?= appUrl('/public/login.php'); ?>">Sign in</a>
+                <?php endif; ?>
                 <a href="<?= appUrl('/public/admin/login.php'); ?>">Admin</a>
             </nav>
         </div>
