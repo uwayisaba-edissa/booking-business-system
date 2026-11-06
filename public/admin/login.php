@@ -40,6 +40,7 @@ unset($_SESSION['flash']);
                 </div>
                 <button type="submit" class="btn primary full">Login</button>
             </form>
+            <a class="btn secondary full admin-public-link" href="<?= appUrl('/public/index.php'); ?>">Go to customer website</a>
         </div>
     </div>
 </body>

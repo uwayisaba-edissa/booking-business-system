@@ -139,6 +139,9 @@ button, input, select { font: inherit; }
 .admin-sidebar nav { display: grid; gap: 6px; }
 .admin-sidebar a { padding: 11px 13px; color: rgba(255,255,255,0.7); border-radius: 9px; font-size: 0.88rem; font-weight: 700; }
 .admin-sidebar a.active, .admin-sidebar a:hover { color: var(--white); background: rgba(255,255,255,0.11); }
+.admin-sidebar .admin-site-link { color: var(--forest-dark); background: var(--sun); }
+.admin-sidebar .admin-site-link:hover { color: var(--forest-dark); background: #ffe08a; }
+.admin-public-link { margin-top: 12px; }
 .admin-main { min-width: 0; padding: 34px; }
 .admin-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
 .admin-topbar h1 { margin: 0; font-size: 2.4rem; }

@@ -30,6 +30,7 @@ $bookings = $pdo->query(
         <aside class="admin-sidebar">
             <h2>Visit Bigogwe</h2>
             <nav>
+                <a class="admin-site-link" href="<?= appUrl('/public/index.php'); ?>">View website</a>
                 <a href="<?= appUrl('/public/admin/dashboard.php'); ?>" class="active">Dashboard</a>
                 <a href="<?= appUrl('/public/admin/bookings.php'); ?>">Bookings</a>
                 <a href="<?= appUrl('/public/admin/destinations.php'); ?>">Destinations</a>
