@@ -9,6 +9,8 @@ if (!isset($_SESSION['admin_id'])) {
     exit;
 }
 $pdo = db();
+$csrfToken = $_SESSION['admin_csrf_token'] ?? bin2hex(random_bytes(32));
+$_SESSION['admin_csrf_token'] = $csrfToken;
 
 $totalBookings = (int) $pdo->query('SELECT COUNT(*) FROM bookings')->fetchColumn();
 $revenue = (float) $pdo->query('SELECT COALESCE(SUM(total_price), 0) FROM bookings WHERE payment_status = "paid"')->fetchColumn();
@@ -70,11 +72,12 @@ $bookings = $pdo->query(
                             <th>Date</th>
                             <th>Payment status</th>
                             <th>Booking status</th>
+                            <th>Change booking status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!$bookings): ?>
-                            <tr><td colspan="6">No bookings yet.</td></tr>
+                            <tr><td colspan="7">No bookings yet.</td></tr>
                         <?php else: ?>
                             <?php foreach ($bookings as $booking): ?>
                                 <tr>
@@ -84,6 +87,21 @@ $bookings = $pdo->query(
                                     <td><?= htmlspecialchars($booking['booking_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><span class="status-pill status-<?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
                                     <td><span class="status-pill status-<?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
+                                    <td>
+                                        <form method="POST" action="<?= appUrl('/public/admin/booking-action.php'); ?>">
+                                            <input type="hidden" name="booking_id" value="<?= (int) $booking['id']; ?>" />
+                                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>" />
+                                            <input type="hidden" name="payment_status" value="<?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?>" />
+                                            <div class="stacked-controls">
+                                                <select name="booking_status" aria-label="Change booking status for <?= htmlspecialchars($booking['reference_code'], ENT_QUOTES, 'UTF-8'); ?>">
+                                                    <option value="pending" <?= $booking['booking_status'] === 'pending' ? 'selected' : ''; ?>>Pending</option>
+                                                    <option value="confirmed" <?= $booking['booking_status'] === 'confirmed' ? 'selected' : ''; ?>>Confirmed</option>
+                                                    <option value="cancelled" <?= $booking['booking_status'] === 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                                                </select>
+                                                <button type="submit" class="btn primary small">Update</button>
+                                            </div>
+                                        </form>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
