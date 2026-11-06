@@ -68,12 +68,13 @@ $bookings = $pdo->query(
                             <th>Customer</th>
                             <th>Destination</th>
                             <th>Date</th>
-                            <th>Status</th>
+                            <th>Payment status</th>
+                            <th>Booking status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!$bookings): ?>
-                            <tr><td colspan="5">No bookings yet.</td></tr>
+                            <tr><td colspan="6">No bookings yet.</td></tr>
                         <?php else: ?>
                             <?php foreach ($bookings as $booking): ?>
                                 <tr>
@@ -81,7 +82,8 @@ $bookings = $pdo->query(
                                     <td><?= htmlspecialchars($booking['full_name'] ?? 'Guest', ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($booking['destination_title'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($booking['booking_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><span class="status-pill status-<?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
+                                    <td><span class="status-pill status-<?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

@@ -77,8 +77,8 @@ unset($_SESSION['flash']);
                             <th>Date</th>
                             <th>Guests</th>
                             <th>Total</th>
-                            <th>Payment</th>
-                            <th>Status</th>
+                            <th>Payment status</th>
+                            <th>Booking status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -97,8 +97,8 @@ unset($_SESSION['flash']);
                                     <td><?= htmlspecialchars($booking['booking_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= (int) $booking['number_of_guests']; ?></td>
                                     <td>Fr <?= number_format((float) $booking['total_price'], 0, '.', ' '); ?></td>
-                                    <td><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><span class="status-pill status-<?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['payment_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
+                                    <td><span class="status-pill status-<?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($booking['booking_status'], ENT_QUOTES, 'UTF-8'); ?></span></td>
                                     <td>
                                         <form method="POST" action="<?= appUrl('/public/admin/booking-action.php'); ?>">
                                             <input type="hidden" name="booking_id" value="<?= (int) $booking['id']; ?>" />
